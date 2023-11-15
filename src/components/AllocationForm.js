@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 
+
 const AllocationForm = (props) => {
-    const { dispatch, remaining } = useContext(AppContext);
+    const { dispatch, remaining, Location } = useContext(AppContext);
 
     const [name, setName] = useState('');
     const [cost, setCost] = useState('');
@@ -11,7 +12,7 @@ const AllocationForm = (props) => {
     const submitEvent = () => {
 
         if (cost > remaining) {
-            alert("The value cannot exceed remaining funds  £" + remaining);
+            alert("The value cannot exceed remaining funds  " + Location + remaining);
             setCost("");
             return;
         }
@@ -59,18 +60,32 @@ const AllocationForm = (props) => {
                         <option value="Reduce" name="Reduce">Reduce</option>
                     </select>
 
-                    <input
-                        required='required'
-                        type='number'
-                        id='cost'
-                        value={cost}
-                        style={{ marginLeft: '2rem', size: 10 }}
-                        onChange={(event) => setCost(event.target.value)}>
-                    </input>
+                    <div>
 
-                    <button className="btn btn-primary" onClick={submitEvent} style={{ marginLeft: '2rem' }}>
-                        Save
-                    </button>
+                        <span className="eco" style={{ marginLeft: '3rem', marginRight: '8px' }}>{Location}</span>
+
+
+
+                        <input
+                            required='required'
+                            type='number'
+                            id='cost'
+                            value={cost}
+                            style={{ marginLeft: '0.1rem', size: 10 }}
+                            onChange={(event) => setCost(event.target.value)}
+                            pattern="[0-9]*"  // Only allows numeric input
+                            onInput={(event) => {
+                                // Allow only numeric input
+                                event.target.value = event.target.value.replace(/[^0-9]/g, '');
+                            }}>
+
+                        </input>
+
+                        <button className="btn btn-primary" onClick={submitEvent} style={{ marginLeft: '2rem' }}>
+                            Save
+                        </button>
+                    </div>
+
                 </div>
             </div>
 
