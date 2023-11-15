@@ -9,6 +9,10 @@ const ExpenseItem = (props) => {
         dispatch({
             type: 'DELETE_EXPENSE',
             payload: props.id,
+
+
+
+            
         });
     };
 
